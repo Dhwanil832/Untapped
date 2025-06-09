@@ -1,0 +1,39 @@
+digraph "Agentic Investment Pipeline" {
+	graph [fontcolor="#2D3436" fontname="Sans-Serif" fontsize=15 label="Agentic Investment Pipeline" nodesep=0.60 pad=2.0 rankdir=TB ranksep=0.75 splines=ortho]
+	node [fixedsize=true fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13 height=1.4 imagescale=true labelloc=b shape=box style=rounded width=1.4]
+	edge [color="#7B8894"]
+	"78ff5b644d044f46966ef0ea58fd2840" [label="Founders / Admins" height=1.9 image="C:\Python312\Lib\site-packages\resources/onprem/client\client.png" shape=none]
+	subgraph "cluster_API Layer" {
+		graph [bgcolor="#E5F5FD" fontname="Sans-Serif" fontsize=12 label="API Layer" labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+		d8cea814fecd4067a5da083bd78e853b [label="FastAPI
+Pydantic" height=2.3 image="C:\Python312\Lib\site-packages\resources/onprem/network\nginx.png" shape=none]
+	}
+	"582593b6e0294825ae90cc8201ef5db9" [label="Object Storage
+(Supabase/AWS S3)" height=2.3 image="C:\Python312\Lib\site-packages\resources/generic/storage\storage.png" shape=none]
+	"78ff5b644d044f46966ef0ea58fd2840" -> d8cea814fecd4067a5da083bd78e853b [label="POST /api/submit" dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	d8cea814fecd4067a5da083bd78e853b -> "582593b6e0294825ae90cc8201ef5db9" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"794763fa8e644c2b9233e82b1148db7d" [label=raw_bundles height=1.9 image="C:\Python312\Lib\site-packages\resources/onprem/inmemory\redis.png" shape=none]
+	d8cea814fecd4067a5da083bd78e853b -> "794763fa8e644c2b9233e82b1148db7d" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	subgraph cluster_Workers {
+		graph [bgcolor="#E5F5FD" fontname="Sans-Serif" fontsize=12 label=Workers labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+		"72d3899ee31e46158dda4640d20cab81" [label="Preprocessing
+Worker" height=2.3 image="C:\Python312\Lib\site-packages\resources/onprem/compute\server.png" shape=none]
+		"0560e54d536849dabeffc8ca90989c44" [label=DataExtractionAgent height=1.9 image="C:\Python312\Lib\site-packages\resources/programming/language\python.png" shape=none]
+		"4daf071ae58d43de80353f7f77333ae8" [label=ScoringAgent height=1.9 image="C:\Python312\Lib\site-packages\resources/programming/language\python.png" shape=none]
+		"14ff428a2cf94900bdf7591b466fa72a" [label=DecisionAgent height=1.9 image="C:\Python312\Lib\site-packages\resources/programming/language\python.png" shape=none]
+	}
+	d8cea814fecd4067a5da083bd78e853b -> "72d3899ee31e46158dda4640d20cab81" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"72d3899ee31e46158dda4640d20cab81" -> "0560e54d536849dabeffc8ca90989c44" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"0560e54d536849dabeffc8ca90989c44" -> "4daf071ae58d43de80353f7f77333ae8" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"4daf071ae58d43de80353f7f77333ae8" -> "14ff428a2cf94900bdf7591b466fa72a" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"6954f828ec174d17a78ae5aca658dd5e" [label="Postgres DB" height=1.9 image="C:\Python312\Lib\site-packages\resources/onprem/database\postgresql.png" shape=none]
+	"0560e54d536849dabeffc8ca90989c44" -> "6954f828ec174d17a78ae5aca658dd5e" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"4daf071ae58d43de80353f7f77333ae8" -> "6954f828ec174d17a78ae5aca658dd5e" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"14ff428a2cf94900bdf7591b466fa72a" -> "6954f828ec174d17a78ae5aca658dd5e" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"1f904ffab3ec45b7934b0e6bd8bec102" [label="Admin Dashboard
+(Streamlit/React)" height=2.3 image="C:\Python312\Lib\site-packages\resources/programming/language\python.png" shape=none]
+	"14ff428a2cf94900bdf7591b466fa72a" -> "1f904ffab3ec45b7934b0e6bd8bec102" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"0464302815b04bc29aaf020fd32bb3e0" [label="Feedback & Retraining
+(Prefect/Airflow)" height=2.3 image="C:\Python312\Lib\site-packages\resources/programming/language\python.png" shape=none]
+	"1f904ffab3ec45b7934b0e6bd8bec102" -> "0464302815b04bc29aaf020fd32bb3e0" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+}
